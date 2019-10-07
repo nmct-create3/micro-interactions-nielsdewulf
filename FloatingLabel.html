@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/screen.css">
 
     <script src="script/app.js"></script>
-    <script src="script/validation.js"></script>
+    <script src="script/floatinglabel.js"></script>
 
 </head>
 
@@ -45,27 +45,28 @@
                     <h2 class="c-card__title">
                         Sign in to your account
                     </h2>
-                    <p class="c-form-field js-email-field">
-                        <label class="c-label" for="username">
-                            Email address
-                            <span class="c-label__error-message js-email-error-message">
-                                This field is required
-                            </span>
-                        </label>
+                    <p class="c-form-field c-form-field--floating js-email-field">
+                        
                         <input class="c-input js-email-input" type="email" name="username" id="username"
-                            placeholder="e.g. john@doe.com" required>
+                             required>
+                            <label class="c-label c-label--floating" for="username">
+                                Email address
+                                <span class="c-label__error-message js-email-error-message">
+                                    This field is required
+                                </span>
+                            </label>
                     </p>
-                    <p class="c-form-field js-password-field">
-                        <label class="c-label" for="password">
-                            Password
-                            <span class="c-label__error-message js-password-error-message">
-                                This field is required
-                            </span>
-                        </label>
+                    <p class="c-form-field c-form-field--floating js-password-field">
+                        
                         <span class="c-password-toggle-container">
                             <input class="c-input c-password__field js-password-input" type="password" name="password"
                                 id="password" required>
-
+                                <label class="c-label c-label--floating" for="password">
+                                    Password
+                                    <span class="c-label__error-message js-password-error-message">
+                                        This field is required
+                                    </span>
+                                </label>
                             <span class="c-password-toggle">
                                 <input
                                     class="o-hide-accessible c-password__option c-input--password-with-toggle js-password-toggle"
