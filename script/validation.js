@@ -2,48 +2,48 @@ let email = {},
 	password = {},
 	signInButton;
 const getDOMElements = () => {
-	email.errorMessage = document.querySelector('.js-email-field');
-	email.input = document.querySelector('.js-email-error-message');
-	email.field = document.querySelector('.js-email-input');
+	email.field = document.querySelector('.js-email-field');
+	email.errorMessage = document.querySelector('.js-email-error-message');
+	email.input = document.querySelector('.js-email-input');
 
-	password.errorMessage = document.querySelector('.js-password-field');
-	password.input = document.querySelector('.js-password-error-message');
-	password.field = document.querySelector('.js-password-input');
+	password.field = document.querySelector('.js-password-field');
+	password.errorMessage = document.querySelector('.js-password-error-message');
+	password.input = document.querySelector('.js-password-input');
 
 	signInButton = document.querySelector('.js-sign-in-button');
 };
 const enableListeners = () => {
-	email.field.addEventListener('blur', e => {
+	email.input.addEventListener('blur', e => {
 		if (!isValidEmailAddress(e.target.value)) {
 			if (isEmpty(e.target.value)) {
-				email.input.innerHTML = 'This field is required';
+				email.errorMessage.innerHTML = 'This field is required';
 				addErrors(email);
 			} else {
-				email.input.innerHTML = 'Invalid email address';
+				email.errorMessage.innerHTML = 'Invalid email address';
 				addErrors(email);
 			}
-			email.field.addEventListener('input', doubleCheckEmail);
+			email.input.addEventListener('input', doubleCheckEmail);
 		} else {
 			removeErrors(email);
 		}
 	});
-	password.field.addEventListener('blur', e => {
+	password.input.addEventListener('blur', e => {
 		if (!isValidPassword(e.target.value)) {
 			if (isEmpty(e.target.value)) {
-				password.input.innerHTML = 'This field is required';
+				password.errorMessage.innerHTML = 'This field is required';
 				addErrors(password);
 			} else {
-				password.input.innerHTML = 'Password must be longer than 1 char';
+				password.errorMessage.innerHTML = 'Password must be longer than 1 char';
 				addErrors(password);
 			}
-			password.field.addEventListener('input', doubleCheckPassword);
+			password.input.addEventListener('input', doubleCheckPassword);
 		} else {
 			removeErrors(password);
 		}
 	});
 	signInButton.addEventListener('click', e => {
-		if (isValidEmailAddress(email.field.value) && isValidPassword(password.field.value)) {
-			console.log('Passed validation', email.field.value, password.field.value);
+		if (isValidEmailAddress(email.input.value) && isValidPassword(password.input.value)) {
+			console.log('Passed validation', email.input.value, password.input.value);
 			e.preventDefault();
 		} else {
 			e.preventDefault();
@@ -53,13 +53,13 @@ const enableListeners = () => {
 const doubleCheckEmail = e => {
 	if (isValidEmailAddress(e.target.value) && !isEmpty(e.target.value)) {
 		removeErrors(email);
-		email.field.removeEventListener('input', doubleCheckEmail);
+		email.input.removeEventListener('input', doubleCheckEmail);
 	}
 };
 const doubleCheckPassword = e => {
 	if (isValidPassword(e.target.value) && !isEmpty(e.target.value)) {
 		removeErrors(password);
-		password.field.removeEventListener('input', doubleCheckPassword);
+		password.input.removeEventListener('input', doubleCheckPassword);
 	}
 };
 const isValidEmailAddress = function(emailAddress) {
@@ -73,10 +73,10 @@ const isValidPassword = password => {
 	return password.length > 0;
 };
 const addErrors = ob => {
-	ob.errorMessage.classList.add('has-error');
+	ob.field.classList.add('has-error');
 };
 const removeErrors = ob => {
-	ob.errorMessage.classList.remove('has-error');
+	ob.field.classList.remove('has-error');
 };
 document.addEventListener('DOMContentLoaded', function() {
 	getDOMElements();

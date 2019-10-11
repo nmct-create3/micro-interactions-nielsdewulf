@@ -76,7 +76,10 @@
 	--global-inline-symbol-space: calc(var(--global-baseline) * 1.75);
 
 	--global-color-error: #ff3333;
-	--global-input-error-borderColor: rgba(255, 51, 51, 0.3);
+	--global-color-error-transparent: rgba(255, 51, 51, 0.3);
+
+	--global-input-error-borderColor: var(--global-color-error);
+	--global-input-error-focus-boxShadow: 0 0 0 3px var(--global-color-error-transparent);
 }
 
 /*------------------------------------*\
@@ -616,7 +619,7 @@ input::placeholder {
 	display: flex;
 	align-items: center;
 }
-.c-form-field--floating{
+.c-form-field--floating {
 	position: relative;
 }
 
@@ -644,13 +647,13 @@ input::placeholder {
 }
 
 .c-input:hover {
-	border-color: var(--global-input-hover-borderColor);
+	border-color: var(--input-hover-borderColor, var(--global-input-hover-borderColor));
 }
 
 .c-input:focus,
 .c-input:active {
-	border-color: var(--global-input-focus-borderColor);
-	box-shadow: var(--global-input-focus-boxShadow);
+	border-color: var(--input-hover-borderColor, var(--global-input-focus-borderColor));
+	box-shadow: var(--input-hover-boxShadow, var(--global-input-focus-boxShadow));
 }
 
 /*
@@ -687,39 +690,42 @@ more padding on the right to avoid overlap
 .c-label--option {
 	padding-bottom: 0;
 }
-.c-label--floating{
+.c-label--floating {
 	position: absolute;
-    top: 12px;
+	top: 12px;
 	left: 8px;
 	display: inline-flex;
 	justify-content: space-between;
 	/* width: calc(100% - 16px); */
-    padding: 4px 8px;
-    will-change: transform;
-    transform: translateY( 0 );
-    transition: transform 200ms ease-in-out;
-    box-shadow: 0 0 4px 4px rgba(255,255,255,0.8);
-    background: white;
+	padding: 4px 8px;
+	will-change: transform;
+	transform: translateY(0);
+	transition: transform 200ms ease-in-out;
+	box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.8);
+	background: white;
 }
-.c-input:focus + .c-label--floating{
+.c-input:focus + .c-label--floating {
 	transform: translateY(-24px);
 }
-.is-floating{
+.is-floating {
 	transform: translateY(-24px);
 }
 
 .has-error {
 	--label-color: var(--global-color-error);
 	--input-borderColor: var(--global-input-error-borderColor);
+	--input-hover-borderColor: var(--global-color-error);
+	--local-label-display: block;
+	--input-hover-boxShadow: var(--global-input-error-focus-boxShadow);
+
 	/* --input-borderWidth: 3px; */
 }
 .c-label__error-message {
 	display: var(--local-label-display, none);
 	font-weight: bold;
 }
-.has-error .c-label__error-message {
-	--local-label-display: block;
-}
+/* .has-error .c-label__error-message {
+} */
 /*
     Component: Button
     ---
